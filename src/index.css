@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@400;600;700&family=Merriweather:wght@300;400;700&display=swap");
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -35,47 +37,40 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Historical theme colors */
+    --sepia: 30 50% 35%;
+    --aged-paper: 44 56% 85%;
+    --ink: 24 100% 12%;
+    --parchment: 60 29% 96%;
+    --vintage-gold: 43 74% 49%;
+    --museum-shadow: 0 0% 0% / 0.15;
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -96,6 +91,62 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-serif;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--parchment)) 0%,
+      hsl(var(--aged-paper)) 100%
+    );
+    font-family: "Merriweather", serif;
+  }
+}
+
+@layer components {
+  .vintage-paper {
+    background:
+      radial-gradient(
+        circle at 20% 50%,
+        hsl(var(--aged-paper)) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        hsl(var(--aged-paper)) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 40% 80%,
+        hsl(var(--aged-paper)) 0%,
+        transparent 50%
+      ),
+      linear-gradient(
+        135deg,
+        hsl(var(--parchment)) 0%,
+        hsl(var(--aged-paper)) 100%
+      );
+    box-shadow: inset 0 0 20px hsl(var(--museum-shadow));
+  }
+
+  .museum-frame {
+    border: 8px solid;
+    border-image: linear-gradient(
+        45deg,
+        hsl(var(--vintage-gold)),
+        hsl(var(--sepia))
+      )
+      1;
+    box-shadow:
+      0 4px 8px hsl(var(--museum-shadow)),
+      inset 0 0 0 2px hsl(var(--parchment));
+  }
+
+  .sepia-effect {
+    filter: sepia(30%) contrast(1.2) brightness(1.1) saturate(0.8);
+  }
+
+  .historical-text {
+    font-family: "Cormorant", serif;
+    color: hsl(var(--ink));
+    text-shadow: 1px 1px 2px hsl(var(--museum-shadow));
   }
 }
