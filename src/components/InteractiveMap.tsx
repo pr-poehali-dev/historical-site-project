@@ -1,10 +1,9 @@
-
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Slider } from '@/components/ui/slider';
-import Icon from '@/components/ui/icon';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Slider } from "@/components/ui/slider";
+import Icon from "@/components/ui/icon";
 
 interface HistoricalEvent {
   id: string;
@@ -12,67 +11,69 @@ interface HistoricalEvent {
   year: number;
   description: string;
   location: { x: number; y: number };
-  type: 'political' | 'cultural' | 'architectural' | 'social';
+  type: "political" | "cultural" | "architectural" | "social";
 }
 
 const mockEvents: HistoricalEvent[] = [
   {
-    id: '1',
-    title: 'Основание города',
+    id: "1",
+    title: "Основание города",
     year: 1147,
-    description: 'Первое упоминание города в летописях',
+    description: "Первое упоминание города в летописях",
     location: { x: 45, y: 55 },
-    type: 'political'
+    type: "political",
   },
   {
-    id: '2',
-    title: 'Строительство собора',
+    id: "2",
+    title: "Строительство собора",
     year: 1240,
-    description: 'Возведение главного городского храма',
+    description: "Возведение главного городского храма",
     location: { x: 50, y: 50 },
-    type: 'architectural'
+    type: "architectural",
   },
   {
-    id: '3',
-    title: 'Торговая площадь',
+    id: "3",
+    title: "Торговая площадь",
     year: 1350,
-    description: 'Открытие центральной торговой площади',
+    description: "Открытие центральной торговой площади",
     location: { x: 60, y: 40 },
-    type: 'social'
+    type: "social",
   },
   {
-    id: '4',
-    title: 'Театр и культура',
+    id: "4",
+    title: "Театр и культура",
     year: 1825,
-    description: 'Открытие первого городского театра',
+    description: "Открытие первого городского театра",
     location: { x: 35, y: 65 },
-    type: 'cultural'
-  }
+    type: "cultural",
+  },
 ];
 
 const InteractiveMap = () => {
   const [selectedYear, setSelectedYear] = useState([1400]);
-  const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(null);
-  const [activeFilter, setActiveFilter] = useState<string>('all');
+  const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(
+    null,
+  );
+  const [activeFilter, setActiveFilter] = useState<string>("all");
 
-  const filteredEvents = mockEvents.filter(event => {
+  const filteredEvents = mockEvents.filter((event) => {
     const yearMatch = event.year <= selectedYear[0];
-    const typeMatch = activeFilter === 'all' || event.type === activeFilter;
+    const typeMatch = activeFilter === "all" || event.type === activeFilter;
     return yearMatch && typeMatch;
   });
 
   const eventTypeColors = {
-    political: 'bg-red-100 text-red-800 border-red-300',
-    cultural: 'bg-blue-100 text-blue-800 border-blue-300',
-    architectural: 'bg-green-100 text-green-800 border-green-300',
-    social: 'bg-yellow-100 text-yellow-800 border-yellow-300'
+    political: "bg-red-100 text-red-800 border-red-300",
+    cultural: "bg-blue-100 text-blue-800 border-blue-300",
+    architectural: "bg-green-100 text-green-800 border-green-300",
+    social: "bg-yellow-100 text-yellow-800 border-yellow-300",
   };
 
   const eventTypeLabels = {
-    political: 'Политическое',
-    cultural: 'Культурное', 
-    architectural: 'Архитектурное',
-    social: 'Социальное'
+    political: "Политическое",
+    cultural: "Культурное",
+    architectural: "Архитектурное",
+    social: "Социальное",
   };
 
   return (
@@ -117,8 +118,8 @@ const InteractiveMap = () => {
                 <div className="flex gap-2">
                   <Button
                     size="sm"
-                    variant={activeFilter === 'all' ? 'default' : 'outline'}
-                    onClick={() => setActiveFilter('all')}
+                    variant={activeFilter === "all" ? "default" : "outline"}
+                    onClick={() => setActiveFilter("all")}
                     className="text-xs"
                   >
                     Все
@@ -127,7 +128,7 @@ const InteractiveMap = () => {
                     <Button
                       key={type}
                       size="sm"
-                      variant={activeFilter === type ? 'default' : 'outline'}
+                      variant={activeFilter === type ? "default" : "outline"}
                       onClick={() => setActiveFilter(type)}
                       className="text-xs"
                     >
@@ -141,21 +142,21 @@ const InteractiveMap = () => {
               <div className="relative w-full h-96 bg-aged-paper rounded-lg border-2 border-sepia sepia-effect overflow-hidden">
                 {/* Фоновая карта-заглушка */}
                 <div className="absolute inset-0 bg-gradient-to-br from-aged-paper via-parchment to-aged-paper opacity-60"></div>
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23000" fill-opacity="0.05"%3E%3Cpath d="M20 20c0 11.046-8.954 20-20 20v20h40V20H20z"/%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
-                
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23000%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M20%2020c0%2011.046-8.954%2020-20%2020v20h40V20H20z%22/%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+
                 {/* Маркеры событий */}
                 {filteredEvents.map((event) => (
                   <button
                     key={event.id}
                     className={`absolute w-4 h-4 rounded-full border-2 shadow-lg transition-all duration-200 hover:scale-125 ${
-                      selectedEvent?.id === event.id 
-                        ? 'bg-vintage-gold border-ink animate-sepia-glow' 
-                        : 'bg-sepia border-parchment hover:bg-vintage-gold'
+                      selectedEvent?.id === event.id
+                        ? "bg-vintage-gold border-ink animate-sepia-glow"
+                        : "bg-sepia border-parchment hover:bg-vintage-gold"
                     }`}
                     style={{
                       left: `${event.location.x}%`,
                       top: `${event.location.y}%`,
-                      transform: 'translate(-50%, -50%)'
+                      transform: "translate(-50%, -50%)",
                     }}
                     onClick={() => setSelectedEvent(event)}
                   />
@@ -197,7 +198,10 @@ const InteractiveMap = () => {
             <Card className="vintage-paper border-sepia">
               <CardContent className="pt-6">
                 <div className="text-center text-sepia">
-                  <Icon name="MapPin" className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                  <Icon
+                    name="MapPin"
+                    className="w-8 h-8 mx-auto mb-2 opacity-50"
+                  />
                   <p>Выберите событие на карте для просмотра подробностей</p>
                 </div>
               </CardContent>
@@ -219,8 +223,8 @@ const InteractiveMap = () => {
                     onClick={() => setSelectedEvent(event)}
                     className={`w-full text-left p-3 rounded-lg border transition-all duration-200 ${
                       selectedEvent?.id === event.id
-                        ? 'bg-vintage-gold border-ink'
-                        : 'bg-parchment border-sepia hover:bg-aged-paper'
+                        ? "bg-vintage-gold border-ink"
+                        : "bg-parchment border-sepia hover:bg-aged-paper"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
